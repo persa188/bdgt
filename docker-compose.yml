@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    links:
+      - "db:db"
+      - "redis:redis"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: test123
+      POSTGRES_USER: bdgt
+      POSTGRES_DB: bdgt
+
+  redis:
+    image: "redis:alpine"
